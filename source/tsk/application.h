@@ -1,6 +1,7 @@
 #pragma once
 
 #include <tsk/renderer.h>
+#include <tsk/buffers.h>
 #include <tsk/window.h>
 #include <tsk/util.h>
 #include <cstdint>

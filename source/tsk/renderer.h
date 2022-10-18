@@ -4,6 +4,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <tsk/util.h>
+#include <tsk/tasksmanager.h>
+#include <tsk/buffers.h>
 #include <tsk/imgui/imgui.h>
 #include <tsk/imgui/imgui_impl_glfw.h>
 #include <tsk/imgui/imgui_impl_opengl3.h>
@@ -14,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <cstdint>
 
 namespace tsk
 {

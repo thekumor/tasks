@@ -58,6 +58,7 @@ namespace tsk
 
 	void Renderer::DrawImGui()
 	{
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -67,8 +68,56 @@ namespace tsk
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y));
 		ImGui::SetNextWindowPos(ImVec2(0, 0));
+
 		ImGui::Begin("Workspace");
-		ImGui::Image((ImTextureID)anime.ID, ImVec2(anime.Size.x, anime.Size.y));
+		BufferInfo& taskBuffer = BufferManager::GetBuffer("Task");
+		ImGui::InputText("Task", taskBuffer.Content, taskBuffer.c_Size);
+
+		TaskManager* taskManager = TaskManager::Get();
+
+		if (ImGui::Button("Add task", ImVec2(100, 24)))
+		{
+			std::string newTask = "";
+
+			if (strlen(taskBuffer.Content) != 0)
+			{
+				newTask = taskBuffer.Content;
+			}
+			else
+			{
+				newTask = ".";
+			}
+
+			// Check if entry already exists.
+			// ImGui gets confused.
+			bool shouldBeAdded = true;
+			for (uint64_t i = 0; i < taskManager->GetCount(); i++)
+			{
+				if (taskManager->GetTask(i)->Content == newTask)
+				{
+					shouldBeAdded = false;
+				}
+			}
+
+			if (shouldBeAdded)
+			{
+				taskManager->AddTask(newTask);
+				taskManager->SaveToFile("tasks.txt");
+			}
+		}
+
+		ImGui::Separator();
+
+		for (uint64_t i = 0; i < taskManager->GetCount(); i++)
+		{
+			std::shared_ptr<TaskInfo>& task = taskManager->GetTask(i);
+			if (ImGui::Checkbox(task->Content.c_str(), &task->IsChecked))
+			{
+				taskManager->RemoveTask(i);
+				taskManager->SaveToFile("tasks.txt");
+			}
+		}
+
 		ImGui::End();
 
 		ImGui::Render();

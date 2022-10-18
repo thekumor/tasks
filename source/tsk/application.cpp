@@ -12,6 +12,7 @@ namespace tsk
 
 	void Application::Run()
 	{
+		TaskManager::Get()->LoadFromFile("tasks.txt");
 		m_Window->MakeContextCurrent();
 		Renderer* const renderer = Renderer::Get();
 		renderer->SetContext(m_Window->GetWindow());
