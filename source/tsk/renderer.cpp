@@ -53,17 +53,16 @@ namespace tsk
 		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
 		ImGui_ImplOpenGL3_Init("#version 330");
 
-		CreateTexture("anime.jpg");
+		//CreateTexture("anime.jpg");
 	}
 
 	void Renderer::DrawImGui()
 	{
-
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		const TextureInfo& anime = m_Textures[0];
+		//const TextureInfo& anime = m_Textures[0];
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y));
@@ -124,7 +123,7 @@ namespace tsk
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	GLuint Renderer::CreateTexture(const std::string& path)
+	/*GLuint Renderer::CreateTexture(const std::string& path)
 	{
 		GLuint textureID;
 		glGenTextures(1, &textureID);
@@ -154,6 +153,6 @@ namespace tsk
 		m_Textures.emplace_back(info);
 
 		return textureID;
-	}
+	}*/
 
 }

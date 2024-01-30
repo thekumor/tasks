@@ -12,7 +12,6 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <glm/glm.hpp>
-#include <stb_image.h>
 #include <string>
 #include <vector>
 #include <memory>
@@ -39,7 +38,7 @@ namespace tsk
 		void SetClearColor(const glm::vec4& color);
 		void InitImGui();
 		void DrawImGui();
-		GLuint CreateTexture(const std::string& path);
+		//GLuint CreateTexture(const std::string& path);
 
 	protected:
 		Renderer();
